@@ -14,10 +14,6 @@ class PermissionViewset(viewsets.ModelViewSet):
     permission_classes = (OwnershipPermission,)
 
 
-class GroupViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
-
 
 class PostViewSet(PermissionViewset):
     queryset = Post.objects.all()
@@ -28,6 +24,10 @@ class PostViewSet(PermissionViewset):
         return serializer.save(
             author=self.request.user
         )
+
+class GroupViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
 
 
 class CommentViewSet(PermissionViewset):
